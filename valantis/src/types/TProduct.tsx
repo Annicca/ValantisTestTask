@@ -1,4 +1,4 @@
-export interface Product {
+export interface TProduct {
     brand: string | null,
     id:string,
     price: number,
