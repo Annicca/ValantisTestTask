@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { Grid } from '@mui/material';
 
 interface ListProps<T> {
     data: T[],
@@ -7,8 +8,8 @@ interface ListProps<T> {
 
 export default function List<T>({data, renderItem}: ListProps<T>) {
     return (
-        <ul>
+        <Grid container spacing={6} >
             {data.map(renderItem)}
-        </ul>
+        </Grid>
     )
 }
