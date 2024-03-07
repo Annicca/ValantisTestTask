@@ -1,58 +1,33 @@
 import { useEffect, useState } from "react"
-import { instance } from "../utils/axios"
 import { TProduct } from "../types/TProduct";
+import { TFilter } from "../types/TFilter";
+import { getIds, getFilter, getProducts } from "../utils/api";
 
-export const useProducts = (page: number) => {
+export const useProducts = (page: number, filter: TFilter) => {
     const [products, setProducts] = useState<TProduct[]|null>(null)
     const [ids, setIds] = useState<string[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true)
 
     const limit = 50
 
-    const getIds = async() => {
-        await instance.post("",{
-            "action": "get_ids",
-            "params": {"limit": limit, "offset": limit*(page-1)}
-        })
-        .then((res) => {
-            setIds(res.data.result)
-        })
-        .catch((error => {
-            if (error.response) {
-                console.log("Ошибка получения идентификаторов: " + error.response.status)
-            }
-        }))
+    const handleIds = (ids: string[] | null) => {
+        setIds(ids)
     }
-    
-    const getProducts = async () => {
 
-        if(ids) {
-            await instance.post("",{
-                "action": "get_items",
-                "params": {"ids": ids}
-            })
-            .then((res) => {
-                if(res.data.result) {
-                    let uniqProducts = [...new Map(res.data.result.map((product: TProduct) => [product.id, product])).values()] as TProduct[]
-                    setProducts(uniqProducts)
-                }
-                setLoading(false)
-            })
-            .catch((error => {
-                if (error.response) {
-                    console.log("Ошибка получения идентификаторов: " + error.response.status)
-                }
-            }))
+    const handleProducts = (products: TProduct[]|null) => {
+        setProducts(products)
+    }
 
-        }
+    const handleLoading = (loading: boolean) => {
+        setLoading(loading)
     }
 
     useEffect(() => {
-        getIds()
-    },[page])
+        Object.keys(filter).length !== 0 ? getFilter(handleIds, handleLoading, filter, limit, page) : getIds(handleIds, handleLoading, limit, page)
+    },[page, filter.brand, filter.price, filter.product])
 
     useEffect(() => {
-        getProducts()
+        getProducts(handleProducts, handleLoading, ids)
     },[ids])
 
     return {products, loading}
