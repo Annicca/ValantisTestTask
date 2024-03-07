@@ -55,7 +55,8 @@ export const getProducts = async (handleProducts: (products: TProduct[]|null) =>
         })
         .then((res) => {
             if(res.data.result) {
-                let uniqProducts = [...new Map(res.data.result.map((product: TProduct) => [product.id, product])).values()] as TProduct[]
+                let uniqProducts = [...new Map(res.data.result.reverse().map((product: TProduct) => [product.id, product])).values()].reverse() as TProduct[]
+                
                 handleProducts(uniqProducts)
             }
             handleLoading(false)  

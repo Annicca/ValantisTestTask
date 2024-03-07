@@ -13,6 +13,7 @@ export const Main: FC = () => {
     const {products, loading} = useProducts(page, filter);
 
     const handleChangePage = (event: React.ChangeEvent<unknown> | null, value: number) => {
+        event?.preventDefault()
         setPage(value);
     };
 

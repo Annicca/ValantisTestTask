@@ -31,8 +31,8 @@ export const Filter:FC<FilterProps> =({handleFilter}) => {
     }
 
     return(
-        <Grid container component={"form"} columnGap={2} mt={2} width={'100%'} onSubmit={onSubmit} onReset={onReset}>
-            <TextField id="product" name="product" label="Product" variant="outlined" 
+        <Grid container component={"form"} columnGap={2} rowGap={2} mt={2} pr={2} pl={2} width={'100%'} onSubmit={onSubmit} onReset={onReset}>
+            <TextField id="product" name="product" label="Product" variant="outlined"
             onChange={handleTextFieldValue} />
             <TextField id="brand" name="brand" label="Brand" variant="outlined"
             onChange={handleTextFieldValue}/>

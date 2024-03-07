@@ -8,7 +8,7 @@ interface ProductItemProps {
 
 export const ProductItem:FC<ProductItemProps> = ({product}) => {
     return(
-        <Grid container item xs={3} direction="column" textAlign={"left"}>
+        <Grid container item lg={3} sm={4} md={4} direction="column" textAlign={"left"}>
             <Paper 
                 variant="outlined" 
                 sx= {{
