@@ -7,7 +7,7 @@ export const ListLoading: FC =() => {
             <Grid key = {'skeleton'+index+item} container item lg={3} sm={4} md={4}>
                 <Skeleton sx={{
                     width: 300,
-                    height: 530,
+                    height: 450,
                     transform: 'none',
                     transformOrigin: 0
                 }}/>
