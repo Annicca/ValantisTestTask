@@ -2,7 +2,6 @@ import { FC, useState} from "react";
 import { useProducts } from "../hooks/usePropducts";
 import List from "../components/list/List";
 import { ProductItem } from "../components/productItem/ProductItem";
-
 import { TFilter } from "../types/TFilter";
 import { Filter } from "../components/filter/Filter";
 
