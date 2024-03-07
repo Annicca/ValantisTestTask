@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { TProduct } from "../../types/TProduct"
 import { Grid, Typography, Paper} from '@mui/material';
+import imgUrl from '../../assets/golden-ring.jpg'
 
 interface ProductItemProps {
     product: TProduct
@@ -17,7 +18,7 @@ export const ProductItem :FC<ProductItemProps> = ({product}) => {
                 padding: 2}}
             >
                 <img
-                src='src/assets/golden-ring.jpg'
+                src={imgUrl}
                 alt={product.product}
                 loading="lazy"
                 width = {'100%'}
