@@ -1,38 +1,35 @@
 import { FC, useState} from "react";
 import { useProducts } from "../hooks/usePropducts";
 import List from "../components/list/List";
-import { ProductItem } from "../components/ProductItem/ProductItem";
-import {Pagination, Box} from '@mui/material'
+import { ProductItem } from "../components/productItem/ProductItem";
+
 import { TFilter } from "../types/TFilter";
+import { Filter } from "../components/filter/Filter";
 
 export const Main: FC = () => {
 
     const [page, setPage] = useState<number>(1)
-    const [filter, setFilter] = useState<TFilter|null>(null)
-    const {products, loading} = useProducts(page);
+    const [filter, setFilter] = useState<TFilter>({})
+    const {products, loading} = useProducts(page, filter);
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChangePage = (event: React.ChangeEvent<unknown> | null, value: number) => {
         setPage(value);
     };
 
-    const handleFilter = (filter: TFilter|null) => {
+    const handleFilter = (filter: TFilter) => {
+        handleChangePage(null,1)
         setFilter(filter)
     }
 
-    if(loading) return <div>Loading...</div>
-    else if(!products) return <div>Список товаров пуст</div>
-    else return (
+    return (
         <main>
-            <List data = {products} renderItem={(item) => <ProductItem product={item} key = {item.id} />} />
-            <Box component={"div"} sx = {{mt: 4}}>
-                <Pagination 
-                    count={10}
-                    boundaryCount={0}
-                    page={page}
-                    onChange = {handleChange}
-                />
-            </Box>
-
+            <Filter handleFilter={handleFilter} />
+            <List 
+            data = {products} 
+            loading = {loading}
+            renderItem={(item) => <ProductItem product={item} key = {item.id} />} 
+            page={page} 
+            handleChangePage={handleChangePage} />
         </main>
     )
 }

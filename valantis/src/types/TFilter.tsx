@@ -1,5 +1,5 @@
 export interface TFilter {
-    product: string,
-    price: number,
-    brand: string
+    product?: string,
+    price?: string | number,
+    brand?: string
 }
